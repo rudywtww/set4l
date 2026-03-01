@@ -282,84 +282,110 @@
   </div>
 </body>
 
+<script>
+  // Fade in/out mentor names on scroll
+  document.addEventListener("DOMContentLoaded", () => {
+    const names = document.querySelectorAll(".mentor-name");
+    if (!names.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        } else {
+          entry.target.style.opacity = "0";
+          entry.target.style.transform = "translateY(10px)";
+        }
+      });
+    }, { threshold: 0.25 });
+
+    names.forEach((el) => observer.observe(el));
+  });
+</script>
+  
 </html>
-<!-- YOUR MENTORS SECTION -->
-<div style="margin-top:70px; padding:50px 20px; text-align:center; color:white;">
+<!-- YOUR MENTORS SECTION (CLEAN) -->
+<div style="padding:18px 16px 8px; text-align:center;">
 
-  <h2 style="
-      font-size:clamp(26px,5vw,36px);
-      font-weight:800;
-      margin-bottom:35px;
+  <!-- Title -->
+  <div style="
+      font-size:clamp(18px,4vw,22px);
+      font-style:italic;
+      font-weight:700;
+      margin-bottom:12px;
+      opacity:0.55;
+      background:linear-gradient(145deg,#2b2b2b,#0f0f0f);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
   ">
-      Your Mentors
-  </h2>
+    Your Mentors
+  </div>
 
+  <!-- Names row -->
   <div style="
       display:flex;
       justify-content:center;
-      gap:50px;
+      gap:28px;
       flex-wrap:wrap;
       align-items:center;
   ">
 
-      <!-- Trenton (Owner) -->
-      <div style="text-align:center;">
+    <!-- Trenton -->
+    <a class="mentor-name"
+       href="https://www.tiktok.com/@trqnton?_r=1&_t=ZT-94JyhWXU6jm"
+       target="_blank"
+       style="
+          font-size:clamp(18px,4vw,24px);
+          font-weight:800;
+          text-decoration:none;
+          background:linear-gradient(145deg,#ff8c00,#bf4000);
+          -webkit-background-clip:text;
+          -webkit-text-fill-color:transparent;
 
-          <div style="font-size:28px; margin-bottom:8px;">👑</div>
+          opacity:0;
+          transform:translateY(10px);
+          transition:opacity .6s ease, transform .6s ease;
+       ">
+      Trenton Foster
+      <span style="
+          display:block;
+          font-size:12px;
+          opacity:0.55;
+          letter-spacing:1px;
+          margin-top:4px;
+          color:#bbb;
+          -webkit-text-fill-color:initial;
+      ">OWNER</span>
+    </a>
 
-          <a href="https://www.tiktok.com/@trqnton?_r=1&_t=ZT-94JyhWXU6jm"
-             target="_blank"
-             style="
-                font-size:clamp(20px,4vw,26px);
-                font-weight:800;
-                text-decoration:none;
-                background:linear-gradient(145deg,#ff8c00,#bf4000);
-                -webkit-background-clip:text;
-                -webkit-text-fill-color:transparent;
-             ">
-              Trenton Foster
-          </a>
+    <!-- Ethan -->
+    <a class="mentor-name"
+       href="https://www.tiktok.com/@ethanstr11?_r=1&_t=ZT-94JykpR2218"
+       target="_blank"
+       style="
+          font-size:clamp(18px,4vw,24px);
+          font-weight:800;
+          text-decoration:none;
+          background:linear-gradient(145deg,#ff8c00,#bf4000);
+          -webkit-background-clip:text;
+          -webkit-text-fill-color:transparent;
 
-          <div style="
-              margin-top:6px;
-              font-size:14px;
-              opacity:0.6;
-              letter-spacing:1px;
-          ">
-              OWNER
-          </div>
-
-      </div>
-
-      <!-- Ethan (CEO) -->
-      <div style="text-align:center;">
-
-          <div style="font-size:28px; margin-bottom:8px;">👑</div>
-
-          <a href="https://www.tiktok.com/@ethanstr11?_r=1&_t=ZT-94JykpR2218"
-             target="_blank"
-             style="
-                font-size:clamp(20px,4vw,26px);
-                font-weight:800;
-                text-decoration:none;
-                background:linear-gradient(145deg,#ff8c00,#bf4000);
-                -webkit-background-clip:text;
-                -webkit-text-fill-color:transparent;
-             ">
-              Ethan Strong
-          </a>
-
-          <div style="
-              margin-top:6px;
-              font-size:14px;
-              opacity:0.6;
-              letter-spacing:1px;
-          ">
-              CEO
-          </div>
-
-      </div>
+          opacity:0;
+          transform:translateY(10px);
+          transition:opacity .6s ease, transform .6s ease;
+       ">
+      Ethan Strong
+      <span style="
+          display:block;
+          font-size:12px;
+          opacity:0.55;
+          letter-spacing:1px;
+          margin-top:4px;
+          color:#bbb;
+          -webkit-text-fill-color:initial;
+      ">CEO</span>
+    </a>
 
   </div>
-
 </div>
