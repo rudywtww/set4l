@@ -393,6 +393,199 @@
 
 
 
+</body>
+<!-- ================= CONTACT SECTION (BOTTOM) ================= -->
+
+<!-- Footer Contact Button -->
+<div style="text-align:center; margin-top:20px;">
+  <button id="openContactBtn" class="footer-contact-btn" type="button">
+    Contact
+  </button>
+</div>
+
+<!-- Contact Overlay -->
+<div id="contactOverlay" class="contact-overlay" aria-hidden="true">
+  <div class="contact-modal" role="dialog" aria-modal="true" aria-label="Contact">
+    
+    <button class="contact-close" id="contactCloseBtn" aria-label="Close contact panel">
+      ✕
+    </button>
+
+    <h3 class="contact-title">Contact</h3>
+    <p class="contact-sub">Tap to open or call.</p>
+
+    <div class="contact-cards">
+      
+      <a class="contact-card" href="tel:6067061511">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">606-706-1511</div>
+      </a>
+
+      <a class="contact-card" 
+         href="https://www.instagram.com/trvntonfoster" 
+         target="_blank" 
+         rel="noreferrer">
+        <div class="contact-label">Instagram</div>
+        <div class="contact-value">@trvntonfoster</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<style>
+/* Contact Button */
+.footer-contact-btn{
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  color: rgba(255,255,255,0.75);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: 0.2s ease;
+}
+.footer-contact-btn:hover{
+  color: rgba(255,255,255,0.95);
+}
+
+/* Overlay */
+.contact-overlay{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+}
+.contact-overlay.is-open{
+  display: flex;
+}
+
+/* Modal */
+.contact-modal{
+  width: min(520px, 100%);
+  border-radius: 18px;
+  padding: 22px;
+  background: rgba(18,18,22,0.95);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  position: relative;
+  transform: translateY(10px);
+  opacity: 0;
+  animation: contactIn .2s ease forwards;
+}
+
+@keyframes contactIn{
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Close Button */
+.contact-close{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+}
+
+/* Text */
+.contact-title{
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.95);
+}
+
+.contact-sub{
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Cards */
+.contact-cards{
+  display: grid;
+  gap: 12px;
+}
+
+.contact-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  transition: 0.2s ease;
+}
+
+.contact-card:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+.contact-label{
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+.contact-value{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.95);
+}
+</style>
+
+<script>
+const overlay = document.getElementById("contactOverlay");
+const openBtn = document.getElementById("openContactBtn");
+const closeBtn = document.getElementById("contactCloseBtn");
+
+function openContact(){
+  overlay.classList.add("is-open");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeContact(){
+  overlay.classList.remove("is-open");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+openBtn.addEventListener("click", openContact);
+closeBtn.addEventListener("click", closeContact);
+
+// Click outside closes
+overlay.addEventListener("click", function(e){
+  if(e.target === overlay){
+    closeContact();
+  }
+});
+
+// ESC key closes
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape" && overlay.classList.contains("is-open")){
+    closeContact();
+  }
+});
+</script>
+
+<!-- ================= END CONTACT SECTION ================= -->
+
+
+
+
 
 
 
