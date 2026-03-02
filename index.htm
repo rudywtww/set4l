@@ -397,7 +397,7 @@
 <!-- ================= CONTACT SECTION (BOTTOM) ================= -->
 
 <!-- Footer Contact Button -->
-<div style="text-align:center; margin-top:20px;">
+<div style="text-align:center; margin-top:20px; margin-bottom:60px;">
   <button id="openContactBtn" class="footer-contact-btn" type="button">
     Contact
   </button>
@@ -434,7 +434,6 @@
 </div>
 
 <style>
-/* Contact Button */
 .footer-contact-btn{
   background: transparent;
   border: 0;
@@ -450,7 +449,6 @@
   color: rgba(255,255,255,0.95);
 }
 
-/* Overlay */
 .contact-overlay{
   position: fixed;
   inset: 0;
@@ -466,7 +464,6 @@
   display: flex;
 }
 
-/* Modal */
 .contact-modal{
   width: min(520px, 100%);
   border-radius: 18px;
@@ -484,7 +481,6 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Close Button */
 .contact-close{
   position: absolute;
   top: 12px;
@@ -498,7 +494,6 @@
   cursor: pointer;
 }
 
-/* Text */
 .contact-title{
   margin: 0 0 4px;
   font-size: 20px;
@@ -512,7 +507,6 @@
   color: rgba(255,255,255,0.6);
 }
 
-/* Cards */
 .contact-cards{
   display: grid;
   gap: 12px;
@@ -566,14 +560,12 @@ function closeContact(){
 openBtn.addEventListener("click", openContact);
 closeBtn.addEventListener("click", closeContact);
 
-// Click outside closes
 overlay.addEventListener("click", function(e){
   if(e.target === overlay){
     closeContact();
   }
 });
 
-// ESC key closes
 document.addEventListener("keydown", function(e){
   if(e.key === "Escape" && overlay.classList.contains("is-open")){
     closeContact();
@@ -582,6 +574,7 @@ document.addEventListener("keydown", function(e){
 </script>
 
 <!-- ================= END CONTACT SECTION ================= -->
+
 
 
 
