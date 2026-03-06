@@ -1,251 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>set4l Training</title>
+<meta name="description" content="Learn the invisible skill that powers the modern internet lifestyle.">
 
 <style>
-html, body { margin:0; padding:0; overflow-x:hidden; background:#121212; }
-body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  -webkit-text-size-adjust:100%;
-}
-* { box-sizing: border-box; }
-
-/* ================= PASSWORD GATE ================= */
-#gateOverlay {
-  position: fixed;
-  inset: 0;
-  background: #0f0f0f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999;
-  opacity: 1;
-  transition: opacity .5s ease;
+body{
+  margin:0;
+  background:#0D0D0D;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color:white;
 }
 
-.gate-box {
-  width:max(300px, 70%);
-  max-width:380px;
-  background:#1a1a1a;
-  padding:28px;
-  border-radius:20px;
-  text-align:center;
-  border:1px solid rgba(255,255,255,0.1);
-  box-shadow:0 0 50px rgba(0,0,0,0.5);
-  animation:fadeUp .45s ease;
+/* layout */
+.wrap{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
 }
 
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
+.center{text-align:center;}
+.muted{color:#bdbdbd;}
+
+/* modern colors */
+:root{
+  --grad: linear-gradient(135deg, #ff951a, #c24000);
+  --soft-bg: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.10);
 }
 
-.gate-logo {
-  font-size:32px;
+/* headers */
+.h1{
+  font-size: clamp(30px, 6vw, 48px);
   font-weight:800;
-  background:linear-gradient(145deg,#ff8c00,#bf4000);
+  line-height:1.15;
+  margin:0;
+}
+
+.h2{
+  margin-top:14px;
+  font-size: clamp(16px, 3.2vw, 22px);
+  font-weight:300;
+}
+
+/* video */
+.videoShell{
+  border-radius:20px;
+  overflow:hidden;
+}
+video{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:cover;
+}
+
+/* CTA */
+.btn{
+  display:inline-block;
+  background:var(--grad);
+  padding:16px 42px;
+  border-radius:14px;
+  color:white;
+  font-size:clamp(18px, 4.2vw, 24px);
+  font-weight:800;
+  text-decoration:none;
+  transition:0.2s ease;
+}
+.btn:hover{
+  opacity:0.9;
+}
+
+.proofImg{
+  width:min(300px,90vw);
+  border-radius:10px;
+  display:block;
+  margin:0 auto;
+}
+
+/* testimonials */
+.testGrid{
+  margin-top:30px;
+  display:grid;
+  gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+}
+.testGrid img{
+  width:100%;
+  border-radius:18px;
+}
+
+/* mentors */
+.mentorsTitle{
+  font-size:clamp(22px,4vw,26px);
+  font-style:italic;
+  font-weight:700;
+  background:linear-gradient(145deg,#fff,#bfbfbf);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  margin-bottom:10px;
 }
 
-.gate-title { font-size:22px; font-weight:700; color:white; }
-.gate-sub { margin-top:6px; font-size:14px; color:#bbb; }
-
-.gate-input {
-  width:100%;
-  padding:14px;
-  margin-top:18px;
-  border-radius:12px;
-  border:1px solid #333;
-  background:#222;
-  color:white;
-  font-size:16px;
-  outline:none;
+.mentor{
+  font-size:clamp(18px,4vw,24px);
+  font-weight:800;
+  text-decoration:none;
+  background:var(--grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  transition:0.3s;
+}
+.mentor span{
+  display:block;
+  font-size:12px;
+  opacity:0.6;
+  color:#bbb;
+  -webkit-text-fill-color:initial;
 }
 
-.gate-btn {
-  width:100%;
-  padding:14px;
-  margin-top:16px;
-  background:linear-gradient(145deg,#ff8c00,#bf4000);
+/* contact modal */
+.contact-overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  z-index:9999;
+}
+.contact-overlay.is-open{
+  display:flex;
+}
+.contact-modal{
+  width:min(500px,100%);
+  background:#111215;
+  border-radius:18px;
+  padding:22px;
+  border:1px solid var(--border);
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
+  position:relative;
+  animation:fadeIn .25s ease forwards;
+  opacity:0;
+}
+@keyframes fadeIn{
+  to{opacity:1;}
+}
+.contact-card{
+  display:flex;
+  justify-content:space-between;
+  background:var(--soft-bg);
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  text-decoration:none;
   color:white;
-  font-weight:700;
-  border:none;
-  border-radius:12px;
+}
+.footer-contact-btn{
+  background:none;
+  border:0;
+  color:#bbb;
+  text-decoration:underline;
   cursor:pointer;
-  font-size:17px;
-  transition:0.2s;
 }
-.gate-btn:hover { opacity:0.85; }
-
-.gate-error {
-  font-size:14px;
-  color:#ff4f4f;
-  min-height:18px;
-  margin-top:12px;
+.footer-contact-btn:hover{
+  color:white;
 }
 
-/* ================= SITE ================= */
-.wrap{width:100%;max-width:900px;margin:0 auto;padding:0 20px;}
-.center{text-align:center;}
-.muted{color:#bbbbbb;}
-.logo{font-size:clamp(24px,4.5vw,32px);font-weight:800;color:white;}
-.h1{font-size:clamp(26px,5.5vw,40px);font-weight:700;line-height:1.15;margin:0;color:white;}
-.h2a{margin-top:14px;font-size:clamp(16px,3.2vw,24px);color:#bbbbbb;}
-.h2b{margin-top:12px;font-size:clamp(15px,3vw,20px);color:white;}
-
-.videoWrap{max-width:900px;margin:22px auto 0;padding:0 20px;}
-.videoShell{border-radius:20px;overflow:hidden;}
-video{width:100%;display:block;object-fit:cover;}
-
-.ctaSection{text-align:center;color:white;max-width:900px;margin:44px auto;padding:0 20px;}
-.ctaTitle{font-size:clamp(26px,5.5vw,40px);font-weight:700;margin:0;}
-.btn{
-  display:inline-block;background:linear-gradient(145deg,#ff8c00,#bf4000);
-  padding:16px 38px;border-radius:12px;color:white;text-decoration:none;
-  font-size:clamp(18px,4.2vw,24px);font-weight:800;
+/* footer */
+.footer{
+  text-align:center;
+  padding:30px 0 40px;
+  color:#777;
 }
-.ctaSub{margin-top:16px;font-size:clamp(15px,3.2vw,20px);color:#bbbbbb;max-width:600px;margin-left:auto;margin-right:auto;}
-
-.proofImg{width:min(280px,85vw);border-radius:10px;margin:0 auto;display:block;}
-
-.testWrap{text-align:center;color:white;margin-top:50px;padding:0 12px;}
-.testTitle{font-size:clamp(24px,5.6vw,42px);font-weight:700;margin:0 auto;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1200px;margin:28px auto 0;}
-.grid img{width:100%;border-radius:20px;}
-
-.disclaimer{max-width:900px;margin:50px auto;padding:20px;color:#aaaaaa;font-size:14px;line-height:1.6;}
-.discTitle{text-align:center;color:white;margin-bottom:16px;font-size:18px;}
-
-.footer{text-align:center;padding:26px 0 34px;color:#555;}
-.footerBrand{font-size:22px;font-weight:800;color:white;margin-bottom:8px;}
-.footerCopy{color:#777;font-size:14px;}
-
-@media(max-width:420px){
-  .wrap,.videoWrap,.ctaSection{padding:0 14px;}
-  .btn{width:100%;padding:16px 18px;}
-  .grid{grid-template-columns:1fr;}
+.footerBrand{
+  font-size:24px;
+  font-weight:800;
+  color:white;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= PASSWORD GATE ================= -->
-<div id="gateOverlay">
-  <div class="gate-box">
-    <div class="gate-logo">[set4l]</div>
-    <div class="gate-title">Access Required</div>
-    <div class="gate-sub">Enter your password to continue</div>
+<!-- HERO -->
+<div class="wrap center" style="padding-top:40px;">
+  <div style="font-size:28px; font-weight:800; margin-bottom:20px;">[set4l]</div>
 
-    <input id="gateInput" type="password" class="gate-input" placeholder="Password">
-    <button id="gateBtn" class="gate-btn">ENTER</button>
-    <div id="gateError" class="gate-error"></div>
+  <h1 class="h1">
+    Learn the Invisible Skill Behind The Modern Internet Lifestyle
+  </h1>
+
+  <div class="h2 muted">
+    <i><b>No inventory. No team. No face shown. Just pure digital leverage.</b></i>
   </div>
 </div>
-<!-- ================= END GATE ================= -->
 
-
-<div id="main">
-
-  <!-- LOGO -->
-  <div style="padding:18px 0; display:flex; justify-content:center;">
-    <div class="logo">[set4l]</div>
+<!-- VIDEO -->
+<div class="wrap" style="margin-top:32px;">
+  <div class="videoShell">
+    <video
+      src="https://d.rapidcdn.app/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJodHRwczovL3YxNm0tZGVmYXVsdC50aWt0b2tjZG4tdXMuY29tLzQ5YTRmN2RmMjU1ZWYxOTc1MjdlNzllYTMzYWFjMjc0LzY5YTQyNmZhL3ZpZGVvL3Rvcy91c2Vhc3Q1L3Rvcy11c2Vhc3Q1LXZlLTAwNjhjMDAzLXR4L29vZ2ViWkVFYUxJa1dDNnBBM1FFUm9jRmtmcE9UQUVTREQ5QmduLz9hPTAmYnRpPU9UZzdRR281UUhNNk9qWkFMVEF6WUNNdmNDTXhORE5nJmNoPTAmY3I9MTMmZHI9MCZlcj0wJmxyPWFsbCZuZXQ9MCZjZD0wJTdDMCU3QzAlN0MmY3Y9MSZicj0xNzkyJmJ0PTg5NiZjcz0yJmRzPTQmZnQ9QklqdFFWWTF3YnFSZnQ5RU9yX2hGSjRfQTBwaUktT1U0aktKYWlnbkguMFAzLUkmbWltZV90eXBlPXZpZGVvX21wNCZxcz0xNSZyYz1OV2M0T0dVMU9XWmthVGN6TnprN2FVQnBhamQwZFdvNWNqVjBPRE16Wnpjek5FQXhZalV4TDJJelgyRXhORFplTURKZllTTnlZMmRoTW1SekwyQmhMUzFrTVM5emN3JTNEJTNEJnZ2cGw9MSZsPTIwMjYwMzAxMDU0NTQwNzVBOTlEMDY5N0Y0Q0E2NTE5NzAmYnRhZz1lMDAwYjgwMDAi&dl=1"
+      autoplay
+      muted
+      loop
+      playsinline
+      controls
+      preload="auto"
+    ></video>
   </div>
-
-  <!-- HEAD TEXT -->
-  <div class="wrap center" style="color:white; padding-top:8px;">
-    <h1 class="h1">"Let me reveal the one ‘invisible skill’ that helped me build..."</h1>
-    <div class="h2a muted"><i><b>Without Inventory, A Team, or Even Showing My Face.</b></i></div>
-    <div class="h2b"><i><b>The Ultimate Blueprint... Join Below!</b></i></div>
-  </div>
-
-  <!-- VIDEO -->
-  <div class="videoWrap">
-    <div class="videoShell">
-      <video id="mainVideo" autoplay muted playsinline>
-        <source src="YOUR_VIDEO_URL_HERE" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <!-- CTA SECTION -->
-  <div class="ctaSection">
-    <h1 class="ctaTitle">Join Now Before We Close <i>set4l</i> To The Public:</h1>
-
-    <div style="margin-top:22px;">
-      <a class="btn" href="https://whop.com/checkout/plan_3VWJ0zwrKZzVp" target="_blank">JOIN TODAY</a>
-    </div>
-
-    <p class="ctaSub"><i><b>Learn how I turned $225 into $200k+ within 4 months at 16 years old.</b></i></p>
-
-    <img class="proofImg" src="https://framerusercontent.com/images/cA49x5kNzh2TnYyHkOCXG8Ab2E.webp">
-  </div>
-
 </div>
 
+<!-- CTA -->
+<div class="wrap center" style="margin-top:44px;">
+  <h1 class="h1" style="font-size:clamp(26px,5vw,38px);">
+    Join set4l Before Enrollment Closes
+  </h1>
+
+  <a class="btn" style="margin-top:24px;" href="https://whop.com/checkout/plan_3VWJ0zwrKZzVp" target="_blank">
+    JOIN TODAY
+  </a>
+
+  <p style="margin-top:14px; max-width:640px; margin-left:auto;margin-right:auto;" class="muted">
+    <i><b>Learn how I turned $225 into $200k+ in 4 months at 16 years old.</b></i>
+  </p>
+
+  <img class="proofImg" src="https://framerusercontent.com/images/cA49x5kNzh2TnYyHkOCXG8Ab2E.webp">
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="wrap" style="margin-top:55px;">
+  <h1 class="h1 center" style="font-size:clamp(26px,5.2vw,42px);">
+    Real Students. Real Proof.
+  </h1>
+
+  <div class="testGrid">
+    <img src="https://framerusercontent.com/images/4zSLWJycf4UMG7h6u6FuEe1PT8.webp">
+    <img src="https://framerusercontent.com/images/o8DsAJVTYZu9Vitwm4aS91PUkRc.webp">
+    <img src="https://framerusercontent.com/images/Ap8ezz6oJLzZQDGXZHFrdLCqAlE.webp">
+    <img src="https://framerusercontent.com/images/ELUJKbN0u8N0fM0HiqM4jExAic.webp">
+    <img src="https://framerusercontent.com/images/VPYn1uTFNlhKaLKneAdVxbS4Dw.webp">
+    <img src="https://framerusercontent.com/images/rswpTuLbQntCBnINBx78G7qqHNM.webp">
+    <img src="https://framerusercontent.com/images/I2dxpazwLZvwT4OMFHXq9boTbmk.webp">
+    <img src="https://framerusercontent.com/images/547auWNZebHznYUozLA9wSZ0eEM.webp">
+    <img src="https://framerusercontent.com/images/sXkZesX8w7KkMrpnszlV3ywC44.webp">
+    <img src="https://framerusercontent.com/images/wfytZsbpO51Nsbjx4lZekoqUI.webp">
+    <img src="https://framerusercontent.com/images/87zLK1eBI4dnm3HZiE9wDNQcos.webp">
+    <img src="https://framerusercontent.com/images/JnrVW1JCagqIkxRoYMg5tyh89ZM.webp">
+    <img src="https://framerusercontent.com/images/F70wc9UNjd09tWFNgRawgDyaVg.webp">
+    <img src="https://framerusercontent.com/images/CE2uYjP91z8sRad0g196HicQVww.webp">
+    <img src="https://framerusercontent.com/images/9GdzFNVHrHbGuIc6aKCyRutPQ.webp">
+  </div>
+</div>
+
+<!-- MENTORS -->
+<div class="wrap center" style="margin-top:60px;">
+  <div class="mentorsTitle">Your Mentors</div>
+
+  <div style="display:flex; justify-content:center; gap:34px; flex-wrap:wrap; margin-top:14px;">
+
+    <a class="mentor" href="https://www.tiktok.com/@trqnton?_r=1&_t=ZT-94JyhWXU6jm" target="_blank">
+      Trenton Foster
+      <span>OWNER</span>
+    </a>
+
+    <a class="mentor" href="https://www.tiktok.com/@ethanstr11?_r=1&_t=ZT-94JykpR2218" target="_blank">
+      Ethan Strong
+      <span>CEO</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div style="text-align:center; margin-top:40px;">
+  <button id="openContactBtn" class="footer-contact-btn">Contact</button>
+</div>
+
+<div id="contactOverlay" class="contact-overlay">
+  <div class="contact-modal">
+
+    <button id="contactCloseBtn" style="position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--soft-bg);color:white;cursor:pointer;">✕</button>
+
+    <h3 style="margin:0 0 4px; font-size:20px; font-weight:700;">Contact</h3>
+    <p style="margin:0 0 18px; font-size:13px; color:#bbb;">Tap to open or call.</p>
+
+    <div style="display:grid; gap:12px;">
+      <a class="contact-card" href="tel:6067061511">
+        <div>Phone</div><div>606‑706‑1511</div>
+      </a>
+
+      <a class="contact-card" href="https://www.instagram.com/trvntonfoster" target="_blank">
+        <div>Instagram</div><div>@trvntonfoster</div>
+      </a>
+    </div>
+
+  </div>
+</div>
 
 <script>
-/* ======================= PASSWORD LOGIC FIXED ======================= */
+const overlay = document.getElementById("contactOverlay");
+const openBtn = document.getElementById("openContactBtn");
+const closeBtn = document.getElementById("contactCloseBtn");
 
-const correctHash = "0f24f0b071ba0b305d23150426080145f0ea8c3a65a29637132a27895d71f6d6"; // SHA‑256("PRINT")
-
-async function sha256(str){
-  const buf = new TextEncoder().encode(str);
-  const hash = await crypto.subtle.digest("SHA-256", buf);
-  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
-}
-
-const overlay = document.getElementById("gateOverlay");
-const input   = document.getElementById("gateInput");
-const btn     = document.getElementById("gateBtn");
-const err     = document.getElementById("gateError");
-
-/* AUTO LOGIN */
-if(localStorage.getItem("set4lLoggedIn") === "true"){
-  overlay.style.display = "none";
-}
-
-btn.addEventListener("click", checkPass);
-input.addEventListener("keydown", e => { if(e.key==="Enter") checkPass(); });
-
-async function checkPass(){
-  const value = input.value.trim();
-  if(!value) return;
-
-  const hash = await sha256(value);
-
-  if(hash === correctHash){
-    localStorage.setItem("set4lLoggedIn","true");
-    overlay.style.opacity = 0;
-    setTimeout(()=>overlay.remove(), 500);
-  } else {
-    err.innerText = "Incorrect password.";
+openBtn.onclick = () => {
+  overlay.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+};
+closeBtn.onclick = () => {
+  overlay.classList.remove("is-open");
+  document.body.style.overflow = "";
+};
+overlay.onclick = e => {
+  if (e.target === overlay){
+    overlay.classList.remove("is-open");
+    document.body.style.overflow = "";
   }
-}
-
-/* ======================= VIDEO LOOP FIX ======================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const vid = document.getElementById("mainVideo");
-  if(!vid) return;
-
-  vid.muted = true;
-  vid.play().catch(()=>{});
-
-  vid.addEventListener("ended", () => {
-    vid.currentTime = 0;
-    vid.play();
-  });
-});
+};
 </script>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerBrand">set4l</div>
+  © 2026 set4l — All rights reserved.
+</div>
 
 </body>
 </html>
-
-
-
-
