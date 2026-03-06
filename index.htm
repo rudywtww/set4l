@@ -1,175 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>set4l Training</title>
 
-  <title>set4l Training</title>
-  <meta name="description" content="set4l Training" />
+<style>
+html, body { margin:0; padding:0; overflow-x:hidden; background:#121212; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+* { box-sizing: border-box; }
 
-  <style>
-    html, body { margin:0; padding:0; overflow-x:hidden; background:#121212; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; -webkit-text-size-adjust:100%; }
-    * { box-sizing: border-box; }
+/* ================= PASSWORD GATE ================= */
+#gateOverlay {
+  position: fixed;
+  inset: 0;
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
 
-    /* ======================== PASSWORD GATE ======================== */
-    #gateOverlay {
-      position: fixed;
-      inset: 0;
-      background: #0f0f0f;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999999;
-      opacity: 1;
-      transition: opacity .5s ease;
-    }
+.gate-box {
+  width:max(300px, 70%);
+  max-width:380px;
+  background:#1a1a1a;
+  padding:28px;
+  border-radius:20px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 50px rgba(0,0,0,0.5);
+  animation:fadeUp .45s ease;
+}
 
-    .gate-box {
-      width:max(300px, 70%);
-      max-width:380px;
-      background:#1a1a1a;
-      padding:28px;
-      border-radius:20px;
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.1);
-      box-shadow:0 0 50px rgba(0,0,0,0.5);
-      animation:fadeUp .45s ease;
-    }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(20px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
+.gate-logo {
+  font-size:32px;
+  font-weight:800;
+  background:linear-gradient(145deg,#ff8c00,#bf4000);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
 
-    .gate-logo {
-      font-size:32px;
-      font-weight:800;
-      background:linear-gradient(145deg,#ff8c00,#bf4000);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      margin-bottom:10px;
-    }
+.gate-title { font-size:22px; font-weight:700; color:white; }
+.gate-sub { margin-top:6px; font-size:14px; color:#bbb; }
 
-    .gate-title {
-      font-size:22px;
-      font-weight:700;
-      color:white;
-    }
+.gate-input {
+  width:100%;
+  padding:14px;
+  margin-top:18px;
+  border-radius:12px;
+  border:1px solid #333;
+  background:#222;
+  color:white;
+  font-size:16px;
+  outline:none;
+}
 
-    .gate-sub {
-      margin-top:6px;
-      font-size:14px;
-      color:#bbb;
-    }
+.gate-btn {
+  width:100%;
+  padding:14px;
+  margin-top:16px;
+  background:linear-gradient(145deg,#ff8c00,#bf4000);
+  color:white;
+  font-weight:700;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:17px;
+  transition:0.2s;
+}
+.gate-btn:hover { opacity:0.85; }
 
-    .gate-input {
-      width:100%;
-      padding:14px;
-      margin-top:18px;
-      border-radius:12px;
-      border:1px solid #333;
-      background:#222;
-      color:white;
-      font-size:16px;
-      outline:none;
-    }
+.gate-error {
+  font-size:14px;
+  color:#ff4f4f;
+  min-height:18px;
+  margin-top:12px;
+}
 
-    .gate-btn {
-      width:100%;
-      padding:14px;
-      margin-top:16px;
-      background:linear-gradient(145deg,#ff8c00,#bf4000);
-      color:white;
-      font-weight:700;
-      border:none;
-      border-radius:12px;
-      cursor:pointer;
-      font-size:17px;
-      transition:0.2s;
-    }
-    .gate-btn:hover { opacity:0.85; }
+/* ================= SITE ================= */
+.wrap{width:100%;max-width:900px;margin:0 auto;padding:0 20px;}
+.center{text-align:center;}
+.muted{color:#bbbbbb;}
+.logo{font-size:clamp(24px,4.5vw,32px);font-weight:800;color:white;}
+.h1{font-size:clamp(26px,5.5vw,40px);font-weight:700;line-height:1.15;margin:0;color:white;}
+.h2a{margin-top:14px;font-size:clamp(16px,3.2vw,24px);color:#bbbbbb;}
+.h2b{margin-top:12px;font-size:clamp(15px,3vw,20px);color:white;}
 
-    .gate-error {
-      font-size:14px;
-      color:#ff4f4f;
-      min-height:18px;
-      margin-top:12px;
-    }
+.videoWrap{max-width:900px;margin:22px auto 0;padding:0 20px;}
+.videoShell{border-radius:20px;overflow:hidden;}
+video{width:100%;display:block;object-fit:cover;}
 
-    /* ======================== YOUR REAL SITE ======================== */
+.ctaSection{text-align:center;color:white;max-width:900px;margin:44px auto;padding:0 20px;}
+.ctaTitle{font-size:clamp(26px,5.5vw,40px);font-weight:700;margin:0;}
+.btn{
+  display:inline-block;background:linear-gradient(145deg,#ff8c00,#bf4000);
+  padding:16px 38px;border-radius:12px;color:white;text-decoration:none;
+  font-size:clamp(18px,4.2vw,24px);font-weight:800;
+}
+.ctaSub{margin-top:16px;font-size:clamp(15px,3.2vw,20px);color:#bbbbbb;max-width:600px;margin-left:auto;margin-right:auto;}
 
-    .wrap{width:100%;max-width:900px;margin:0 auto;padding:0 20px;}
-    .center{text-align:center;}
-    .muted{color:#bbbbbb;}
+.proofImg{width:min(280px,85vw);border-radius:10px;margin:0 auto;display:block;}
 
-    .logo{font-size:clamp(24px,4.5vw,32px);font-weight:800;color:white;}
-    .h1{
-      font-size:clamp(26px,5.5vw,40px);font-weight:700;line-height:1.15;margin:0;color:white;
-    }
-    .h2a{
-      margin-top:14px;font-size:clamp(16px,3.2vw,24px);font-weight:300;color:#bbbbbb;
-    }
-    .h2b{
-      margin-top:12px;font-size:clamp(15px,3vw,20px);font-weight:300;color:white;
-    }
+.testWrap{text-align:center;color:white;margin-top:50px;padding:0 12px;}
+.testTitle{font-size:clamp(24px,5.6vw,42px);font-weight:700;margin:0 auto;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1200px;margin:28px auto 0;}
+.grid img{width:100%;border-radius:20px;}
 
-    .videoWrap{max-width:900px;margin:22px auto 0;padding:0 20px;}
-    .videoShell{border-radius:20px;overflow:hidden;}
-    video{width:100%;display:block;object-fit:cover;}
+.disclaimer{max-width:900px;margin:50px auto;padding:20px;color:#aaaaaa;font-size:14px;line-height:1.6;}
+.discTitle{text-align:center;color:white;margin-bottom:16px;font-size:18px;}
 
-    .ctaSection{text-align:center;color:white;max-width:900px;margin:44px auto;padding:0 20px;}
-    .ctaTitle{font-size:clamp(26px,5.5vw,40px);font-weight:700;margin:0;}
-    .btn{
-      display:inline-block;background:linear-gradient(145deg,#ff8c00,#bf4000);
-      padding:16px 38px;border-radius:12px;color:white;text-decoration:none;
-      font-size:clamp(18px,4.2vw,24px);font-weight:800;
-    }
-    .ctaSub{
-      margin-top:16px;font-size:clamp(15px,3.2vw,20px);color:#bbbbbb;
-      max-width:600px;margin-left:auto;margin-right:auto;
-    }
+.footer{text-align:center;padding:26px 0 34px;color:#555;}
+.footerBrand{font-size:22px;font-weight:800;color:white;margin-bottom:8px;}
+.footerCopy{color:#777;font-size:14px;}
 
-    .proofImg{width:min(280px,85vw);border-radius:10px;margin:0 auto;display:block;}
-
-    .testWrap{text-align:center;color:white;margin-top:50px;padding:0 12px;}
-    .testTitle{font-size:clamp(24px,5.6vw,42px);font-weight:700;max-width:900px;margin:0 auto;}
-    .grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;max-width:1200px;margin:28px auto 0;
-    }
-    .grid img{width:100%;border-radius:20px;}
-
-    .disclaimer{max-width:900px;margin:50px auto;padding:20px;color:#aaaaaa;font-size:14px;line-height:1.6;}
-    .discTitle{text-align:center;color:white;margin-bottom:16px;font-size:18px;}
-
-    .footer{text-align:center;padding:26px 0 34px;color:#555;}
-    .footerBrand{font-size:22px;font-weight:800;color:white;margin-bottom:8px;}
-    .footerCopy{color:#777;font-size:14px;}
-
-    @media(max-width:420px){
-      .wrap,.videoWrap,.ctaSection{padding:0 14px;}
-      .btn{width:100%;padding:16px 18px;}
-      .grid{grid-template-columns:1fr;}
-    }
-  </style>
+@media(max-width:420px){
+  .wrap,.videoWrap,.ctaSection{padding:0 14px;}
+  .btn{width:100%;padding:16px 18px;}
+  .grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
 
 <body>
 
-<!-- ======================== PASSWORD GATE HTML ======================== -->
+<!-- ================= PASSWORD GATE ================= -->
 <div id="gateOverlay">
   <div class="gate-box">
     <div class="gate-logo">[set4l]</div>
     <div class="gate-title">Access Required</div>
     <div class="gate-sub">Enter your password to continue</div>
 
-    <input id="gateInput" type="password" class="gate-input" placeholder="Password" />
+    <input id="gateInput" type="password" class="gate-input" placeholder="Password">
     <button id="gateBtn" class="gate-btn">ENTER</button>
     <div id="gateError" class="gate-error"></div>
   </div>
 </div>
-<!-- ======================== END PASSWORD GATE ======================== -->
+<!-- ================= END GATE ================= -->
 
 
 <div id="main">
@@ -181,8 +159,7 @@
 
   <!-- HEAD TEXT -->
   <div class="wrap center" style="color:white; padding-top:8px;">
-    <h1 class="h1">"Let me reveal the one ‘invisible skill’ ..."</h1>
-
+    <h1 class="h1">"Let me reveal the one ‘invisible skill’ that helped me build..."</h1>
     <div class="h2a muted"><i><b>Without Inventory, A Team, or Even Showing My Face.</b></i></div>
     <div class="h2b"><i><b>The Ultimate Blueprint... Join Below!</b></i></div>
   </div>
@@ -190,16 +167,13 @@
   <!-- VIDEO -->
   <div class="videoWrap">
     <div class="videoShell">
-      <video id="mainVideo"
-        src="YOUR_VIDEO_URL_HERE"
-        autoplay
-        muted
-        playsinline
-      ></video>
+      <video id="mainVideo" autoplay muted playsinline>
+        <source src="YOUR_VIDEO_URL_HERE" type="video/mp4">
+      </video>
     </div>
   </div>
 
-  <!-- APPLY SECTION -->
+  <!-- CTA SECTION -->
   <div class="ctaSection">
     <h1 class="ctaTitle">Join Now Before We Close <i>set4l</i> To The Public:</h1>
 
@@ -207,42 +181,23 @@
       <a class="btn" href="https://whop.com/checkout/plan_3VWJ0zwrKZzVp" target="_blank">JOIN TODAY</a>
     </div>
 
-    <p class="ctaSub"><i><b>Learn how I turned $225 into $200k+ within 4 months at 16.</b></i></p>
+    <p class="ctaSub"><i><b>Learn how I turned $225 into $200k+ within 4 months at 16 years old.</b></i></p>
 
-    <img class="proofImg" src="https://framerusercontent.com/images/cA49x5kNzh2TnYyHkOCXG8Ab2E.webp" />
+    <img class="proofImg" src="https://framerusercontent.com/images/cA49x5kNzh2TnYyHkOCXG8Ab2E.webp">
   </div>
 
-  <!-- TESTIMONIALS -->
-  <div class="testWrap">
-    <h1 class="testTitle">Yea, this sh*t works and here's what the <i>set4l</i> students have to say:</h1>
-    <div class="grid">
-      <!-- your testimonial images preserved -->
-    </div>
-  </div>
-
-  <!-- DISCLAIMER -->
-  <div class="disclaimer">
-    <h2 class="discTitle">INCOME DISCLAIMER</h2>
-    ... your disclaimer text ...
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footerBrand">set4l</div>
-    <div class="footerCopy">© 2026 set4l — All rights reserved.</div>
-  </div>
 </div>
 
-<script>
-<script>
-/* ======================== PASSWORD GATE LOGIC ======================== */
 
-const correctHash = "0f24f0b071ba0b305d23150426080145f0ea8c3a65a29637132a27895d71f6d6"; // SHA-256("PRINT")
+<script>
+/* ======================= PASSWORD LOGIC FIXED ======================= */
+
+const correctHash = "0f24f0b071ba0b305d23150426080145f0ea8c3a65a29637132a27895d71f6d6"; // SHA‑256("PRINT")
 
 async function sha256(str){
   const buf = new TextEncoder().encode(str);
   const hash = await crypto.subtle.digest("SHA-256", buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,"0")).join("");
+  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
 }
 
 const overlay = document.getElementById("gateOverlay");
@@ -250,6 +205,7 @@ const input   = document.getElementById("gateInput");
 const btn     = document.getElementById("gateBtn");
 const err     = document.getElementById("gateError");
 
+/* AUTO LOGIN */
 if(localStorage.getItem("set4lLoggedIn") === "true"){
   overlay.style.display = "none";
 }
@@ -258,21 +214,21 @@ btn.addEventListener("click", checkPass);
 input.addEventListener("keydown", e => { if(e.key==="Enter") checkPass(); });
 
 async function checkPass(){
-  const val = input.value.trim();
-  if(!val) return;
+  const value = input.value.trim();
+  if(!value) return;
 
-  const hash = await sha256(val);
+  const hash = await sha256(value);
+
   if(hash === correctHash){
     localStorage.setItem("set4lLoggedIn","true");
     overlay.style.opacity = 0;
-    setTimeout(()=> overlay.remove(), 500);
+    setTimeout(()=>overlay.remove(), 500);
   } else {
     err.innerText = "Incorrect password.";
   }
 }
-</script>
 
-/* ======================== VIDEO LOOP FIX ======================== */
+/* ======================= VIDEO LOOP FIX ======================= */
 document.addEventListener("DOMContentLoaded", () => {
   const vid = document.getElementById("mainVideo");
   if(!vid) return;
@@ -289,6 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
