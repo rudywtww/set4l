@@ -1,6 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+// ===============================
+// ADVANCED PASSWORD PROTECTION
+// ===============================
+
+// --- CONFIG ---
+const correctHash = "ea9c72e499d19fe577b6ad72037d399a8ce28ed5a554f18ed905d2a6867678c8"; // SHA-256("PRINT")
+const lockoutTime = 60 * 1000; // 60 seconds
+const maxAttempts = 5;
+
+// --- HELPERS ---
+async function sha256(str) {
+  const buf = new TextEncoder().encode(str);
+  const hash = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+}
+
+function blockPage() {
+  document.documentElement.innerHTML = "";
+  document.body.innerHTML = "";
+}
+
+// Prevent early HTML from showing
+document.documentElement.style.display = "none";
+
+async function runGate() {
+  const lockedUntil = localStorage.getItem("pw_locked_until");
+  const now = Date.now();
+
+  // LOCKOUT CHECK
+  if (lockedUntil && now < Number(lockedUntil)) {
+    blockPage();
+    alert("Too many wrong attempts. Try again later.");
+    return;
+  }
+
+  let attempts = Number(localStorage.getItem("pw_attempts") || "0");
+
+  while (true) {
+    const input = prompt("Enter Password:");
+
+    if (!input) {
+      blockPage();
+      return;
+    }
+
+    const hash = await sha256(input);
+
+    if (hash === correctHash) {
+      localStorage.removeItem("pw_attempts");
+      localStorage.setItem("pw_session", "OK");
+      document.documentElement.style.display = "";
+      return;
+    } else {
+      attempts++;
+      localStorage.setItem("pw_attempts", attempts);
+
+      if (attempts >= maxAttempts) {
+        const until = now + lockoutTime;
+        localStorage.setItem("pw_locked_until", until);
+        blockPage();
+        alert("Too many incorrect attempts. Locked for 60 seconds.");
+        return;
+      }
+
+      alert("Incorrect password.");
+    }
+  }
+}
+
+// SESSION CHECK
+if (localStorage.getItem("pw_session") === "OK") {
+  document.documentElement.style.display = "";
+} else {
+  runGate();
+}
+</script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
@@ -574,6 +654,7 @@ document.addEventListener("keydown", function(e){
 </script>
 
 <!-- ================= END CONTACT SECTION ================= -->
+
 
 
 
