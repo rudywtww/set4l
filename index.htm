@@ -236,7 +236,7 @@
 <script>
 /* ======================== PASSWORD GATE LOGIC ======================== */
 
-const correctHash = "0f24f0b071ba0b305d23150426080145f0ea8c3a65a29637132a27895d71f6d6"; // SHA-256("PRINT")
+const correctHash = "0f24f0b071ba0b305d23150426080145f0ea8c3a65a29637132a27895d71f6d6"; 
 
 async function sha256(str){
   const buf = new TextEncoder().encode(str);
@@ -287,4 +287,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
